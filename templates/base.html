@@ -1,0 +1,186 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Lizards|{% block title %}{% endblock %} </title>
+    <link href="{% static 'css/bootstrap.css' %}" rel="stylesheet">
+    <link href="{% static 'css/style.css' %}" rel="stylesheet">
+    <script src="{% static 'js/jquery.min.js' %}"></script>
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
+    <style>
+		#btnCenter img{
+            width:350px;
+            height:auto;
+        }
+	</style>
+</head>
+
+<body>
+    <!-- 头部 Head -->
+    <div class="container top">
+        <div class="row">
+            <div id="btnCenter"> 
+                <div class="col-md-6">
+                    <a>
+                        <img class="img-responsive" src="{% static 'img/logo.jpg' %}">
+                    </a>
+                </div>
+            </div>
+            <div class="col-md-3 hidden-xs">
+                <a class="phone ant">
+                    <span class="glyphicon glyphicon-phone"></span> Telephone：400 8888 0000 &nbsp; &nbsp;
+                </a>
+            </div>
+            <div class="col-md-3 hidden-xs">
+                <a class="mail ant">
+                    <span class="glyphicon glyphicon-envelope"></span> Email：lizards@outlook.com
+                </a>
+
+            </div>
+            
+            <div id="btnCenter"> 
+                <div class="col-md-6">
+                    {% if request.session.username %}
+                    <div style="position: absolute; margin-left: 250px;"> 
+                        <strong>{{ request.session.username }}||</strong>
+                        <a href="/users/logout/"><span><strong>logout</strong></span></a>
+                        </div>
+                    {% else %}
+                    <div style="position: absolute; margin-left: 250px;">
+                        <a href="/users/login/"><span><strong>login || </strong></span></a>
+                        <a href="/users/signup/"><span><strong>register</strong></span></a>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- 导航条 Navigation -->
+    <nav class="navbar navbar-default" role="navigation">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example"
+                    aria-expanded="false">
+                    <span>Navigation</span>
+                </button>
+            </div>
+            <div class="collapse navbar-collapse" id="bs-example">
+                <ul class="nav navbar-nav" style="width:100%;">
+                    <li class="nav-top">
+                        <a href="{% url 'home' %}">Homepage</a>
+                    </li>
+                    <li class="dropdown nav-top" id='about'>
+                        <a href="#" class="dropdown-toggle on" data-toggle="dropdown">About Us</a>
+                        <ul class="dropdown-menu">
+                            <li><a href="{% url 'aboutApp:lizards' %}">Lizards Team</a></li>
+                            <li><a href="{% url 'aboutApp:commentator' %}">Commentator Team</a></li>
+                        </ul>
+                    </li>
+
+                    <li class="dropdown nav-top" id='news'>
+                        <a href="#" class="dropdown-toggle on" data-toggle="dropdown">
+                            News</a>
+                        <ul class="dropdown-menu">
+                            <li><a href="{% url 'newsApp:news' 'company' %}">Game News</a></li>
+                            <li><a href="{% url 'newsApp:news' 'industry' %}">Commentators' Article</a></li>
+                            <li><a href="{% url 'newsApp:news' 'notice' %}">Official Announcement</a></li>
+                        </ul>
+                   
+                    </li>
+                    
+                    <li class="dropdown nav-top" id='employ'>
+                        <a href="#" class="dropdown-toggle on" data-toggle="dropdown">
+                            Recruitment</a>
+                        <ul class="dropdown-menu">
+                            <li><a href="{% url 'contactApp:contact' %}">Contact Us</a></li>
+                            <li><a href="{% url 'contactApp:recruit' %}">Join Us</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+    </nav>
+    <!-- 分割线 Split Line -->
+    <div class="line"></div>
+    {% block content %}
+    {% endblock %}
+    <!-- 页脚 footer-->
+    <div class="container web-footer">
+        <!-- 站点地图 footer navigation -->
+        <div class="row" id="map-footer">
+            <div class="col-md-2">
+                <dl>
+                    <dt>About Us</dt>
+                    <dd><a href="{% url 'aboutApp:lizards' %}">Lizards Team</a></dd>
+                    <dd><a href="{% url 'aboutApp:commentator' %}">Commentator Team</a></dd>
+                </dl>
+            </div>
+
+            <div class="col-md-2">
+                <dl>
+                    <dt>Recruitment</dt>
+                    <dd><a href="{% url 'contactApp:contact' %}">Contact Us</a></dd>
+                    <dd><a href="{% url 'contactApp:recruit' %}">Join Us</a></dd>
+                </dl>
+            </div>
+
+            <div class="col-md-4" id="wx">
+                <p>Scan the QR code & Follow Us</p>
+                <img class="qrimg" src="{% static 'img/qr.png' %}" alt="wx">
+                <p>Telephone：<b style="font-size:20px">400 8888 0000</b></p>
+            </div>
+
+            <div class="col-md-2">
+                <dl>
+                    <dt>News</dt>
+                        <dd><a href="{% url 'newsApp:news' 'ascompany' %}">Game News</a></dd>
+                        <dd><a href="{% url 'newsApp:news' 'industry' %}">Commentators' Article</a></dd>
+                        <dd><a href="{% url 'newsApp:news' 'notice' %}">Official Announcement</a></dd>
+                </dl> 
+            </div>
+
+            <div class="col-md-2">
+                <dl>
+                    <dt>Links</dt>
+                        <dd><a href="https://www.cgtn.com/">CGTN News</a></dd>
+                        <dd><a href="https://olympics.com/tokyo-2020/en/">Olympics Tokoy 2020</a></dd>
+                        <dd><a href="https://olympics.com/en/beijing-2022/">Olympics Beijin 2022</a></dd>
+                        <dd><a href="https://olympics.com/en/">Olympics Office</a></dd>
+                        <dd><a href="https://olympics.com/en/beijing-2022/">China Olympics Beijin 2022</a></dd>
+                </dl> 
+            </div>
+
+        </div>
+
+        <!-- 版权 Copyright -->
+        <div class="row" id="patent-footer">
+            <p> Lizards.tech©2021 Chongjin ZHANG, Zhejun SHEN, Xinyi LU, and Yike DAI. All rights reserved. </p>
+            <p> Powered by Alibaba Cloud </p>
+        </div>
+    </div>
+
+    <script>
+        $(function () {
+            $(".dropdown").mouseover(function () {
+                $(this).addClass("open");
+            });
+            $(".dropdown").mouseleave(function () {
+                $(this).removeClass("open");
+            });
+        });
+    </script>
+    <script type="text/JavaScript">
+        $('#{{active_menu}}').addClass("active");
+    </script>
+    <script type="text/JavaScript">
+        $('#{{sub_menu}}').addClass("active");
+     </script>
+</body>
+
+</html>

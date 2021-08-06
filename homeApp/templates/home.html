@@ -1,0 +1,188 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+
+{% block title %}
+Homepage
+{% endblock %}
+
+{% block content %}
+<link href="{% static 'css/home.css' %}" rel="stylesheet">
+<script src="{% static 'js/jqthumb.min.js' %}"></script>
+
+<!-- 广告横幅 ADs -->
+<div id="ad" class="carousel slide" data-ride="carousel" data-interval="5000">
+  <ol class="carousel-indicators">
+    <li data-target="#ad" data-slide-to="0" class="active"></li>
+    <li data-target="#ad" data-slide-to="1"></li>
+    <li data-target="#ad" data-slide-to="2"></li>
+  </ol>
+  <div class="carousel-inner">
+    <div class="item active">
+      <img src="{% static 'img/banner1.jpg' %}" alt="image: banner1">
+    </div>
+    <div class="item">
+      <img src="{% static 'img/banner2.jpg' %}" alt="image: banner2">
+    </div>
+    <div class="item">
+      <img src="{% static 'img/banner3.jpg' %}" alt="image: banner3">
+    </div>
+  </div>
+  <a class="left carousel-control" href="#ad" data-slide="prev"><span
+      class="glyphicon glyphicon-chevron-left"></span></a>
+  <a class="right carousel-control" href="#ad" data-slide="next"><span
+      class="glyphicon glyphicon-chevron-right"></span></a>
+</div>
+
+<!-- 主体内容 Main Body -->
+<div class="container">
+  <div class="row row-3">
+
+    <div class="col-md-4">
+      <!-- 概况 Lizars Survry -->
+      <span class="part1">
+        <a href="{% url 'aboutApp:lizards' %}">About Us</a>
+      </span>
+      <span class="part1 en">
+        &nbsp;&nbsp;/ About Us
+      </span>
+      <div class="line1">
+        <div class="line2 theme"></div>
+      </div>
+      <div style="margin-top:20px;">
+        <img class="img-responsive" src="{% static 'img/aboutCompany.jpg' %}">
+        <p class="text1">
+          The members cooperate with each other, each have their own strengths, 
+          and communicate frequently to ensure high-quality and 
+          efficient completion of the assigned tasks while taking into account teamwork 
+          to enhance the sense of participation and gain.
+        </p>
+      </div>
+    </div>
+
+    <div class="col-md-8">
+      <!-- 新闻动态 News brief introduction -->
+      <span class="part1">
+        <a href="#">Game News</a>
+      </span>
+      <span class="part1 en">
+        &nbsp;&nbsp;/ News
+      </span>
+      <a class="btn btn-default btn-xs more-btn" href="{% url 'newsApp:news' 'company' %}">
+        +&nbsp;more
+      </a>
+      <div class="line1">
+        <div class="line2 theme"></div>
+      </div>
+      <div class="col-md-5">
+        <div id="myCarousel" class="carousel slide" data-ride="carousel">
+          <ol class="carousel-indicators nav-point">
+            {% for post in postList %}
+            <li data-target="#myCarousel" data-slide-to="{{forloop.counter0}}" {% if forloop.first %} class="active"
+              {% endif %}>
+            </li>
+            {% endfor %}
+          </ol>
+          <!-- 轮播（Carousel）项目 -->
+          <div class="carousel-inner" style="margin-top:15px;">
+            {% for post in postList %}
+            <div {% if forloop.first %} class="item active" {% else %} class="item" {% endif %}
+              style="background-size:cover;">
+              <a href="{% url 'newsApp:newDetail' post.id %}">
+                <img src="{{post.photo.url}}" class="img-responsive" onload="DrawImage(this)"></a>
+              <div class="carousel-caption nav-title">{{post.title}}</div>
+            </div>
+            {% endfor %}
+          </div>
+        </div>
+      </div>
+      <div class="col-md-7">
+        <ul class="list-unstyled list-new">
+          {% for mynew in newList %}
+          <li>
+            <a href="{% url 'newsApp:newDetail' mynew.id %}">
+              {{mynew.title|truncatechars:"15"}}</a>
+            <span>【{{mynew.publishDate|date:"d-m-Y"}}】</span>
+          </li>
+          {% endfor %}
+        </ul>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="row row-3">
+
+    <div class="col-md-4">
+      <!-- 通知公告 -->
+      <span class="part1">
+        <a href="#">Announcement</a>
+      </span>
+      <span class="part1 en">
+        &nbsp;&nbsp;/ News
+      </span>
+      <a class="btn btn-default btn-xs more-btn" href="{% url 'newsApp:news' 'notice' %}">
+        +&nbsp;more
+      </a>
+      <div class="line1">
+        <div class="line2 theme"></div>
+      </div>
+      <div>
+        <img class="img-responsive" src="{% static 'img/note.jpg' %}">
+        <ul class="list-unstyled list-new">
+          {% for note in noteList %}
+          <li>
+            <a href="{% url 'newsApp:newDetail' note.id %}">
+              {{note.title|truncatechars:"25"}}
+            </a>
+            <a href="{% url 'newsApp:newDetail' note.id %}" class="public-detail">
+              detials>>
+            </a>
+          </li>
+          {% endfor %}
+        </ul>
+      </div>
+
+
+    </div>
+
+    <div class="col-md-4">
+      <!-- 联系我们 -->
+      <span class="part1">
+        <a href="{% url 'contactApp:contact' %}">Contact us</a>
+      </span>
+      <span class="part1 en">
+        &nbsp;&nbsp;/ Recruitment
+      </span>
+      <div class="line1">
+        <div class="line2 theme"></div>
+      </div>
+      <div>
+        <ul class="list-unstyled procurement-li">
+          <li>Business Tele：0571-10086</li>
+          <li>Recruitment Tele：0571-10085</li>
+          <li>Postcode: 330000</li>
+          <li>
+            URL: <a href="http://liazards.tech">http://liazards.tech</a>
+          </li>
+        </ul>
+        <div class="platform"><a href="{% url 'contactApp:contact' %}">more+</a></div>
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
+
+<script>
+  //处理缩略图
+  function DrawImage(hotimg) {
+    $(hotimg).jqthumb({
+      width: '100%', 
+      height: '220px', 
+      zoom: '1', // 缩放比例
+      method: 'auto' 
+    });
+  }
+</script>
+{% endblock %}

@@ -1,0 +1,71 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+
+{% block title %}
+Lizards Team
+{% endblock %}
+
+{% block content %}
+<!-- 广告横幅 -->
+<div class="container-fluid">
+    <div class="row">
+        <img class="img-responsive model-img" src="{% static 'img/about.jpg' %}">
+    </div>
+</div>
+<!-- 主体内容 -->
+<div class="container">
+    <div class="row row-3">
+        <!-- 侧边导航栏 -->
+        <div class="col-md-3">
+            <div class="model-title">
+                About Us
+            </div>
+            <div class="model-list">
+                <ul class="list-group">
+                    <li class="list-group-item" id="lizards">
+                        <a href="{% url 'aboutApp:lizards' %}">Lizards Team</a>
+                    </li>
+                    <li class="list-group-item" id="commentator">
+                        <a href="{% url 'aboutApp:commentator' %}">Commentator Team</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <!-- 说明文字和图片 -->
+        <div class="col-md-9">
+            <div class="model-details-title">
+                Lizards Team
+            </div>
+            <div class="model-details">
+                <div class="row">
+                    <img class="img-responsive" src="{% static 'img/logo.jpg' %}">
+                    <hr>
+                    <img class="img-responsive" src="{% static 'img/aboutCompany.jpg' %}">
+                </div>
+                <br>
+                <strong>Team has four members:</strong> <br>
+                <br>
+                Chongjin Zhang 2539644z <br>
+                Zhejun SHEN 2554664S  <br>
+                Xinyi Lu 2558276L <br>
+                Yike Dai 2545253D <br>
+                <hr>
+                The team name contains the initials of each member's surname, 
+                but is a manifestation of team spirit. 
+                In the process of completing the MeetOlympics web page, 
+                each team member participated in each development link. 
+                At the same time, each member has his own task. 
+                For example, Chongjin is good at editing the back-end, 
+                Yike is familiar with the optimization of the front-end of the web, 
+                Xinyi is good at data. Model establishment, 
+                and Zhejun is more familiar with the design of web functions.
+                <hr>
+                The members cooperate with each other, each have their own strengths, 
+                and communicate frequently to ensure high-quality and 
+                efficient completion of the assigned tasks while taking into account teamwork 
+                to enhance the sense of participation and gain.
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

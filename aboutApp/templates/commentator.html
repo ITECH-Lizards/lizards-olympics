@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+
+{% block title %}
+Commentator Team
+{% endblock %}
+
+{% block content %}
+<!-- 广告横幅 -->
+<div class="container-fluid">
+    <div class="row">
+        <img class="img-responsive model-img" src="{% static 'img/about.jpg' %}">
+    </div>
+</div>
+<!-- 主体内容 -->
+<div class="container">
+    <div class="row row-3">
+        <!-- 侧边导航栏 -->
+        <div class="col-md-3">
+            <div class="model-title">
+                About Us
+            </div>
+            <div class="model-list">
+                <ul class="list-group">
+                    <li class="list-group-item" id="lizards">
+                        <a href="{% url 'aboutApp:lizards' %}">Lizards Team</a>
+                    </li>
+                    <li class="list-group-item" id="commentator">
+                        <a href="{% url 'aboutApp:commentator' %}">Commentator Team</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <!-- 说明文字和图片 -->
+        <div class="col-md-9">
+            <div class="model-details-title">
+                Lizards Team
+            </div>
+            <div class="model-details">
+                <div class="row">
+                    <img class="img-responsive model-img" img src="{% static 'img/logo2.png' %}">
+                </div>
+                <br>
+                <strong>Commentator Team members:</strong> <br>
+                John, the Senior Commentator:
+                <div class="row"><img class="img-responsive model-img" img src="{% static 'img/expert1.jpg' %}"></div>
+                Tony, the Editor:
+                <div class="row"><img class="img-responsive model-img" img src="{% static 'img/expert2.jpg' %}"></div>
+                Tom, the Anchorperson:
+                <div class="row"><img class="img-responsive model-img" img src="{% static 'img/expert3.jpg' %}"></div>
+                Tim, the Journalist:
+                <div class="row"><img class="img-responsive model-img" img src="{% static 'img/expert4.jpg' %}"></div>
+                Alice, the Chief Editor:
+                <div class="row"><img class="img-responsive model-img" img src="{% static 'img/expert5.jpg' %}"></div>
+        </div>
+    </div>
+</div>
+{% endblock %}

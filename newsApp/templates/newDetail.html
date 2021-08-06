@@ -1,0 +1,89 @@
+{% extends "base.html" %}
+{% load static %}
+{% load news_tag %}
+{% block css %}
+<link rel="stylesheet" href="{% static '/css/dropload.css' %}">
+{% endblock css %}
+{% block title %}
+News Detials
+{% endblock %}
+
+{% block content %}
+<link href="{% static 'css/news.css' %}" rel="stylesheet">
+<!-- 主体内容 -->
+<div class="container">
+    <div class="model-details-product-title">
+        {{mynew.title}}
+        <div class="model-foot">Date：{{mynew.publishDate|date:"m-d-Y"}} &nbsp;&nbsp;
+            Views：{{mynew.views}}
+        <div class="extra content video-view-operation">
+            <span class="left floated like">
+                <i class="like {%  user_liked_class mynew user %} icon cursor" id="like"
+                   video-id="{{ mynew.id }}">Like</i>
+                <span id="like-count">{{ mynew.count_likers }}</span>
+            </span>
+            <span class="right floated star">
+                <i class="bookmark {%  user_collected_class mynew user %}  icon cursor" id="star"
+                   video-id="{{ mynew.id }}">Star</i>
+                <span id="collect-count">{{ mynew.count_collecters }}</span>
+            </span>
+        </div>
+        </div>
+    </div>
+    <div class="model-details">
+        {{ mynew.description | safe }}
+    </div>
+    <div class="ui comments">
+    {% if user.is_authenticated %}
+    <form class="ui reply form" id="comment_form" method="post"
+          action="{% url 'comment:submit_comment_news' mynew.id %}">
+        {% csrf_token %}
+        <div class="field">
+            {{form.content}}
+            <input type="hidden" value="{{ mynew.id }}" name="news_id">
+        </div>
+        <button class="ui primary button" type="submit">
+            Comments Here
+        </button>
+        <div class="ui info message n">
+            <div class="item" id="comment-result"></div>
+        </div>
+    </form>
+    {% else %}
+    <div class="ui ignored info attached message">
+        <hr><p>You can comment after signing in. &nbsp;&nbsp;&nbsp;
+            <a href="{% url 'users:login' %}?next={{ request.path }}"><strong>Login Now!</strong></a></p>
+    </div>
+    {% endif %}
+    <h3 class="ui dividing header" id="id_comment_label">Comments</h3>
+    <div class="comment-list2">
+        {% for data in comments %}
+            <div class="content">
+            <a class="author">
+                {% if data.nickname %} {{data.nickname}} {% else %} Anonymity {% endif %}
+            </a>
+            <div class="metadata">
+                <span class="date">{{ data.timestamp|time_since }}</span>
+            </div>
+            <div class="text">
+                {{ data.content }}
+            </div>
+        </div>
+
+        {% endfor %}
+    </div>
+</div>
+</div>
+<script src="https://cdn.staticfile.org/semantic-ui/2.4.1/semantic.min.js"></script>
+<script>
+    var search_url = "{% url 'newsApp:search' %}"
+</script>
+<script src="{% static 'js/header_news.js' %}"></script>
+<script>
+    var comments_url = "{% url 'comment:get_comments_news' %}"
+    var news_id = "{{ mynew.id }}"
+</script>
+<script src="{% static 'js/dropload.js' %}"></script>
+<script src="{% static 'js/load_comments_news.js' %}"></script>
+<script src="{% static 'js/detail_news.js' %}"></script>
+{% endblock %}
